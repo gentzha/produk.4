@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beli Produk</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    body {
+      background: url('https://pomf2.lain.la/f/lb43iybf.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+      padding: 1rem;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-top: 80px;
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 1rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .product-image {
+      flex: 0 0 100px;
+      margin-right: 1rem;
+    }
+
+    .product-image img {
+      width: 100px;
+      border-radius: 10px;
+    }
+
+    .product-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .product-info h2 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+
+    .note {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .form-section {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .form-section input[type="number"],
+    .form-section textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      resize: vertical;
+      font-size: 1rem;
+    }
+
+    .toolbar {
+      margin-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #eee;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    .toolbar .total {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .toolbar button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .toolbar button:hover {
+      background-color: #45a049;
+    }
+
+    @media screen and (max-width: 600px) {
+      .container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .product-image {
+        margin-bottom: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="product-image">
+      <img src="https://pomf2.lain.la/f/8g6r99yt.jpg" alt="Produk Spesial">
+    </div>
+    <div class="product-info">
+      <h2>logo jb/hosting</h2>
+      <p class="note">Note: jika anda ingin memulai perjalanan membuka jb/hosting tetapi anda tidak mempunya logo untuk toko anda? maka beli lah logo ini, dijamin kualitas hd dan desain sangat menarik</p>
+    </div>
+
+    <div class="form-section" style="width: 100%;">
+      <label for="jumlah">Beli jumlah produk:</label>
+      <input type="number" id="jumlah" placeholder="Masukkan jumlah" min="1" value="1" oninput="updateTotal()">
+
+      <label for="pesan">Pesan untuk seller:</label>
+      <textarea id="pesan" rows="3" placeholder="Contoh: Tolong kirim secepatnya..."></textarea>
+    </div>
+
+    <div class="toolbar" style="width: 100%;">
+      <div class="total" id="totalHarga">Total: Rp 13.000</div>
+      <button onclick="kirimWA()">Beli Sekarang</button>
+    </div>
+  </div>
+
+  <script>
+    const hargaProduk = 13000;
+    const namaProduk = "logo jb/hosting";
+
+    function updateTotal() {
+      const jumlah = parseInt(document.getElementById('jumlah').value) || 0;
+      const total = hargaProduk * jumlah;
+      document.getElementById('totalHarga').innerText = 'Total: Rp ' + total.toLocaleString('id-ID');
+    }
+
+    function kirimWA() {
+      const jumlah = document.getElementById('jumlah').value || "1";
+      const pesan = encodeURIComponent(document.getElementById('pesan').value);
+      const total = hargaProduk * parseInt(jumlah);
+      const teks = `bang aku mau beli (${namaProduk}) sebanyak (${jumlah}) seharga (Rp ${total.toLocaleString('id-ID')}).${pesan ? ' ' + pesan : ''}`;
+      const link = `https://wa.me/6283875614915?text=${encodeURIComponent(teks)}`;
+      window.location.href = link;
+    }
+  </script>
+
+</body>
+</html>
